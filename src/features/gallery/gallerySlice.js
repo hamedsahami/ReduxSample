@@ -24,16 +24,9 @@ export const gallerySlice = createSlice({
             state.searchModel.section = action.payload;
         },
         loadImages: (state, action) => {
-            // Redux Toolkit allows us to write "mutating" logic in reducers. It
-            // doesn't actually mutate the state because it uses the Immer library,
-            // which detects changes to a "draft state" and produces a brand new
-
-            // immutable state based off those changes
-
             state.images = action.payload;
             console.log('WOW', state.images.length);
         },
-
     },
 });
 
@@ -44,8 +37,8 @@ export const {loadImages, setSection} = gallerySlice.actions;
 // will call the thunk with the `dispatch` function as the first argument. Async
 // code can then be executed and other actions can be dispatched
 export const loadImagesAsync = (state) => dispatch => {
-    const model = state.searchModel;
-    const searchUrl = apiBase + `/3/gallery/${model.section}/${model.sort}/${model.window}/1?showViral=${model.showViral}&mature=false&album_previews=true`;
+
+    const searchUrl = apiBase + `/3/gallery/${state.section}/${state.sort}/${state.window}/1?showViral=${state.showViral}&mature=false&album_previews=true`;
     fetch(searchUrl, {
         headers: {
             Authorization: 'Client-ID ' + CLIENT_ID

@@ -1,81 +1,74 @@
 .row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .row:not(:last-child) {
-  margin-bottom: 16px;
+    margin-bottom: 16px;
 }
+
 .button {
-  line-height: 20px;
-  padding-left:15px ;
-  padding-right:15px ;
-  background-color: brown;
-  color: #ffffff;
-  border-radius: 5px;
+    line-height: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: brown;
+    color: #ffffff;
+    border-radius: 5px;
 }
 
 
 .button:hover, .button:focus {
-  border: 2px solid rgba(112, 76, 182, 0.4);
-  cursor: pointer;
+    border: 2px solid rgba(112, 76, 182, 0.4);
+    cursor: pointer;
 }
 
 .button:active {
-  background-color: rgba(112, 76, 182, 0.2);
+    background-color: rgba(112, 76, 182, 0.2);
 }
 
 .row {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0 4px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 4px;
 }
 
 
 /* Create two equal columns that sits next to each other */
 
 .column {
-  flex: 30%;
-  padding: 5px;
-  position: relative;
+    flex: 30%;
+    padding: 5px;
+  overflow: hidden;
+    position: relative;
 }
 
 
 /* Add a hover effect (blue shadow) */
 
 img:hover {
-  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
 }
 
 .column img {
-  margin-top: 8px;
-  width: 100%;
-  vertical-align: middle;
-  border: 1px solid #ddd;
-  /* Gray border */
-  border-radius: 4px;
-  /* Rounded border */
-  padding: 5px;
-  /* Some padding */
+    margin-top: 8px;
+    width: 100%;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    max-height: 160px;
+    border-radius: 4px;
+    padding: 5px;
 }
 
 .column .content {
-  position: absolute;
-  /* Position the background text */
-  bottom: 0;
-  /* At the bottom. Use top:0 to append it to the top */
-  background: rgb(0, 0, 0);
-  /* Fallback color */
-  background: rgba(0, 0, 0, 0.5);
-  /* Black background with 0.5 opacity */
-  color: #f1f1f1;
-  /* Grey text */
-  width: 100%;
-  /* Full width */
-  padding: 20px;
-  /* Some padding */
-  margin: 5px;
-  max-height: 100px;
-  overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    width: 100%;
+    padding: 20px;
+    margin: 5px;
+    max-height: 100px;
+    overflow: hidden;
 }
