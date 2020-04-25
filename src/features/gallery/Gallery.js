@@ -12,7 +12,7 @@ export function Gallery() {
     return (
         <div>
             <div className={styles.row}>
-                <span className={styles.value}>{0}</span>
+                <h3>Imgur Gallery(ReactJS,Redux)  </h3>
             </div>
             <div>
                 <label>Section:</label>
