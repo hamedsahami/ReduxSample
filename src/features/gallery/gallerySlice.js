@@ -23,6 +23,12 @@ export const gallerySlice = createSlice({
         setSection: (state, action) => {
             state.searchModel.section = action.payload;
         },
+        setSort: (state, action) => {
+            state.searchModel.sort = action.payload;
+        },
+        setShowViral: (state, action) => {
+            state.searchModel.showViral = action.payload;
+        },
         loadImages: (state, action) => {
             state.images = action.payload;
             console.log('WOW', state.images.length);
@@ -30,7 +36,7 @@ export const gallerySlice = createSlice({
     },
 });
 
-export const {loadImages, setSection} = gallerySlice.actions;
+export const {loadImages, setSection,setShowViral,setSort} = gallerySlice.actions;
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
