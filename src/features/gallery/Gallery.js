@@ -1,34 +1,24 @@
 import React, {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {
-    imagesCount, loadImagesAsync,setSection
+    gallery, loadImagesAsync,
 } from './gallerySlice';
 import styles from './Gallery.module.css';
 
 export function Gallery() {
-    const count = useSelector(imagesCount);
+    const galleryStore = useSelector(gallery);
     const dispatch = useDispatch();
-    const [searchModel, images] = useState({
-        images: [],
-        searchModel: {
-            section: 'hot',
-            sort: null,
-            window: null,
-            page: 1,
-            pageSize: 10,
-            showViral: false
-        }
-    });
+    const [searchModel] = useState({searchModel: galleryStore.searchModel});
     return (
         <div>
             <div className={styles.row}>
-                <span className={styles.value}>{count}</span>
+                <span className={styles.value}>{0}</span>
             </div>
-            <div>
-                <label>Section:</label>  <input  value={searchModel.section} onChange={( e) =>
-                dispatch(setSection(e.target.value))
-            }/>
-            </div>
+            {/*<div>*/}
+            {/*    <label>Section:</label>  <input  value={searchModel.section} onChange={( e) =>*/}
+            {/*    dispatch(setSection(e.target.value))*/}
+            {/*}/>*/}
+            {/*</div>*/}
             <button
                 className={styles.button}
                 onClick={() =>
@@ -37,7 +27,11 @@ export function Gallery() {
             > Load Images
             </button>
             <div className={styles.row}>
-
+                {galleryStore.images.map(function (item) {
+                    return <div className={styles.column} key={item.id}>
+                        <img src={item.link}/>
+                    </div>
+                })}
             </div>
         </div>
     );

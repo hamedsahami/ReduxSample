@@ -15,7 +15,6 @@ export const gallerySlice = createSlice({
             pageSize: 10,
             showViral: false
         }
-
     },
     reducers: {
         setImages: (state, action) => {
@@ -32,13 +31,13 @@ export const gallerySlice = createSlice({
             // immutable state based off those changes
 
             state.images = action.payload;
-            console.log('WOW',state.images.length);
+            console.log('WOW', state.images.length);
         },
 
     },
 });
 
-export const {loadImages,setSection} = gallerySlice.actions;
+export const {loadImages, setSection} = gallerySlice.actions;
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
@@ -54,7 +53,10 @@ export const loadImagesAsync = (state) => dispatch => {
         method: 'GET'
     }).then(function (response) {
         response.json().then(function (json) {
-            dispatch(loadImages(json.data));
+            dispatch(loadImages(json.data.map(function (item) {
+                item.link = 'https:/i.imgur.com/'+ item.id+ "l.jpg";
+                return item;
+            })));
         }).catch(reason => {
             console.log(reason)
         })
@@ -64,6 +66,5 @@ export const loadImagesAsync = (state) => dispatch => {
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state) => state.counter.value)`
-export const imagesCount = state => state.images?.length;
-
+export const gallery = state => state.gallery;
 export default gallerySlice.reducer;
