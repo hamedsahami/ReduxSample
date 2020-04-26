@@ -33,7 +33,7 @@ export function Gallery() {
                     <option value={false}>hidden</option>
                 </select>
             </div>
-            <div>
+            <div title={'only available with user section'}>
                 <label>Sort:</label>
                 <select onChange={(e) =>
                     dispatch(setSort(e.target.value))
