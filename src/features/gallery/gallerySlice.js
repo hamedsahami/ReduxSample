@@ -14,11 +14,24 @@ export const gallerySlice = createSlice({
             page: 1,
             pageSize: 10,
             showViral: false
-        }
+        },
+        selectedImage:{},
+        showModal:false
     },
     reducers: {
-        setImages: (state, action) => {
-            state.images = action.payload;
+        setSelectedImage: (state, action) => {
+            state.selectedImage = action.payload;
+
+            state.showModal = !state.showModal;
+        },
+        setImageVotes: (state, action) => {
+            state.selectedImage.downs = action.payload.downs;
+            state.selectedImage.ups = action.payload.ups;
+            console.log(state.selectedImage.ups);
+
+        },
+        setShowModal: (state, action) => {
+            state.showModal = !state.showModal;
         },
         setSection: (state, action) => {
             state.searchModel.section = action.payload;
@@ -36,14 +49,13 @@ export const gallerySlice = createSlice({
     },
 });
 
-export const {loadImages, setSection,setShowViral,setSort} = gallerySlice.actions;
+export const {loadImages, setSection,setShowViral,setSort,setShowModal,setSelectedImage,setImageVotes} = gallerySlice.actions;
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
 // will call the thunk with the `dispatch` function as the first argument. Async
 // code can then be executed and other actions can be dispatched
 export const loadImagesAsync = (state) => dispatch => {
-
     const searchUrl = apiBase + `/3/gallery/${state.section}/${state.sort}/${state.window}/1?showViral=${state.showViral}&mature=false&album_previews=true`;
     fetch(searchUrl, {
         headers: {
@@ -53,9 +65,26 @@ export const loadImagesAsync = (state) => dispatch => {
     }).then(function (response) {
         response.json().then(function (json) {
             dispatch(loadImages(json.data.map(function (item) {
-                item.link = 'https:/i.imgur.com/'+ item.id+ "l.jpg";
+                item.thumbLink = 'https:/i.imgur.com/'+ item.id+ "s.jpg";
+                item.LargeLink = 'https:/i.imgur.com/'+ item.id+ "l.jpg";
                 return item;
             })));
+        }).catch(reason => {
+            console.log(reason)
+        })
+    })
+};
+export const fetchVotesData = (state) => dispatch => {
+    const voteUrl = apiBase + `/3/gallery/image/${state.id}/votes`;
+    fetch(voteUrl, {
+        headers: {
+            Authorization: 'Client-ID ' + CLIENT_ID
+        },
+        method: 'GET'
+    }).then(function (response) {
+        response.json().then(function (json) {
+            dispatch(setImageVotes(json.data));
+            dispatch(setSelectedImage(state));
         }).catch(reason => {
             console.log(reason)
         })
